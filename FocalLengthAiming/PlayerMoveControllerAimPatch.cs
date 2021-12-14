@@ -37,7 +37,8 @@ namespace FocalLengthAiming
             float defaultFOV = GamePrefs.GetInt(EnumGamePrefs.OptionsGfxFOV);
             var aimFOV = ___entityPlayerLocal.cameraTransform.GetComponent<Camera>().fieldOfView;
 
-            ___aimingSensitivity = (float)(Math.Tan(Radians(aimFOV / 2)) / Math.Tan(Radians(defaultFOV / 2)));
+            var sensMult = (float)(Math.Tan(Radians(aimFOV / 2)) / Math.Tan(Radians(defaultFOV / 2)));
+            ___aimingSensitivity = ___defaultSensitivity * sensMult;
 
             return true;
         }
