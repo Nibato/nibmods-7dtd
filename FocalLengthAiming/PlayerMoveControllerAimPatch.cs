@@ -9,18 +9,10 @@ using UnityEngine;
 
 namespace FocalLengthAiming
 {
-
-
     [HarmonyPatch(typeof(PlayerMoveController))]
     [HarmonyPatch("Update")]
     class PlayerMoveControllerAimPatch
     {
-
-        private static float Radians(float degrees)
-        {
-            return ((float)Math.PI / 180) * degrees;
-        }
-
         public static bool Prefix(PlayerMoveController __instance, 
             EntityPlayerLocal ___entityPlayerLocal, 
             float ___defaultSensitivity, 
@@ -37,7 +29,7 @@ namespace FocalLengthAiming
             float defaultFOV = GamePrefs.GetInt(EnumGamePrefs.OptionsGfxFOV);
             var aimFOV = ___entityPlayerLocal.cameraTransform.GetComponent<Camera>().fieldOfView;
 
-            var sensMult = (float)(Math.Tan(Radians(aimFOV / 2)) / Math.Tan(Radians(defaultFOV / 2)));
+            var sensMult = (Mathf.Tan((aimFOV / 2) * Mathf.Deg2Rad) / Mathf.Tan((defaultFOV / 2) * Mathf.Deg2Rad));
             ___aimingSensitivity = ___defaultSensitivity * sensMult;
 
             return true;
