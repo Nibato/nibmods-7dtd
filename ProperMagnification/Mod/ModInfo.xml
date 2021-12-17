@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+  <ModInfo>
+    <Name value="ProperMagnification" />
+    <Description value="Aiming and Scoping will now magnify based on your look FOV video setting instead of set to a fixed FOV" />
+    <Author value="Nibato" />
+    <Version value="1.0.0" />
+  </ModInfo>
+</xml>
