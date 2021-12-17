@@ -25,7 +25,7 @@ namespace ProperMagnification
             maxZoomInAccessor = AccessTools.FieldRefAccess<int>(t, "MaxZoomIn");
             maxZoomOutAccessor = AccessTools.FieldRefAccess<int>(t, "MaxZoomOut");
             currentZoomAccessor = AccessTools.FieldRefAccess<float>(t, "CurrentZoom");
-            zoomInProgressAccessor = AccessTools.FieldRefAccess<bool>(t, "bZoomInProgress")
+            zoomInProgressAccessor = AccessTools.FieldRefAccess<bool>(t, "bZoomInProgress");
         }
 
 
