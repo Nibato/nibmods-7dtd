@@ -1,0 +1,5 @@
+<configs>
+<set xpath="/windows/window[@name='optionsControls']//controloption[@name='LookSensitivity' or @name='ZoomSensitivity' or @name='VehicleSensitivity']/@format_string">0.0000</set>
+
+<set xpath="/windows/window[@name='optionsControls']//controloption[@name='LookSensitivity' or @name='ZoomSensitivity' or @name='VehicleSensitivity']/@value_increment">0.0001</set>
+</configs>
