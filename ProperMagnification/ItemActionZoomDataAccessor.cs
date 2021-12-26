@@ -12,20 +12,35 @@ namespace ProperMagnification
     public class ItemActionZoomDataAccessor
     {
         private ItemActionData data;
-        private AccessTools.FieldRef<object, int> maxZoomInAccessor;
-        private AccessTools.FieldRef<object, int> maxZoomOutAccessor;
-        private AccessTools.FieldRef<object, float> currentZoomAccessor;
-        private AccessTools.FieldRef<object, bool> zoomInProgressAccessor;
+        private static AccessTools.FieldRef<object, int> maxZoomInAccessor = null;
+        private static AccessTools.FieldRef<object, int> maxZoomOutAccessor = null;
+        private static AccessTools.FieldRef<object, float> currentZoomAccessor = null;
+        private static AccessTools.FieldRef<object, bool> zoomInProgressAccessor = null;
 
         public ItemActionZoomDataAccessor(ItemActionData data)
         {
             this.data = data;
 
             var t = data.GetType();
-            maxZoomInAccessor = AccessTools.FieldRefAccess<int>(t, "MaxZoomIn");
-            maxZoomOutAccessor = AccessTools.FieldRefAccess<int>(t, "MaxZoomOut");
-            currentZoomAccessor = AccessTools.FieldRefAccess<float>(t, "CurrentZoom");
-            zoomInProgressAccessor = AccessTools.FieldRefAccess<bool>(t, "bZoomInProgress");
+            if (maxZoomInAccessor == null)
+            {
+                maxZoomInAccessor = AccessTools.FieldRefAccess<int>(t, "MaxZoomIn");
+            }
+
+            if (maxZoomOutAccessor == null)
+            { 
+                maxZoomOutAccessor = AccessTools.FieldRefAccess<int>(t, "MaxZoomOut");               
+            }
+
+            if (currentZoomAccessor == null)
+            {
+                currentZoomAccessor = AccessTools.FieldRefAccess<float>(t, "CurrentZoom");
+            }
+
+            if (zoomInProgressAccessor == null)
+            {
+                zoomInProgressAccessor = AccessTools.FieldRefAccess<bool>(t, "bZoomInProgress");
+            }
         }
 
 
