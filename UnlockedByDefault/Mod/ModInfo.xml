@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xml>
+  <ModInfo>
+    <Name value="UnlockedByDefault" />
+    <Description value="Makes doors and vehicles unlcoekd by default" />
+    <Author value="Jesse Ward" />
+    <Version value="1.0.0" />
+  </ModInfo>
+</xml>

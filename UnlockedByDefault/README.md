@@ -1,0 +1,1 @@
+This client side mod makes all secure blocks that you place unlocked by default.
