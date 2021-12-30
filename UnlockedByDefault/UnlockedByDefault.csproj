@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnlockedByDefault</RootNamespace>
-    <AssemblyName>7DTDModTemplate</AssemblyName>
+    <AssemblyName>UnlockedByDefault</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -67,7 +67,10 @@
     <Compile Include="UnlockPatches.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mod\ModInfo.xml" />
+    <None Include="Mod\ModInfo.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
