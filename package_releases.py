@@ -52,13 +52,13 @@ def package_mod(mod: ModInfo):
     archive_name = "{}_v{}".format(mod.name, mod.version)
     archive_path = os.path.join(RELEASE_DIR, archive_name)
 
-    base_path = os.path.basename(mod.path)
+    base_path = os.path.join(os.path.basename(MODS_PATH), os.path.basename(mod.path))
 
     print("Creating package '{}'".format(archive_name))
 
     shutil.make_archive(archive_path,
         format='zip',
-        root_dir=MODS_PATH,
+        root_dir=os.path.dirname(MODS_PATH),
         base_dir=base_path
         )
 
