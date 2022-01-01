@@ -2,7 +2,7 @@
 <xml>
   <ModInfo>
     <Name value="UnlockedByDefault" />
-    <Description value="Makes doors and vehicles unlcoekd by default" />
+    <Description value="Makes doors and vehicles unlocked by default" />
     <Author value="Nibato" />
     <Version value="1.0.0" />
   </ModInfo>
