@@ -4,13 +4,15 @@ import xml.etree.ElementTree as ET
 import os
 from dataclasses import dataclass
 import shutil
+from zipfile import ZipFile, ZIP_DEFLATED
 
 
 MODS_PATH = r'C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods'
 EXPECTED_AUTHOR = 'nibato'
 
-RELEASE_DIR = os.path.join(os.getcwd(), "PackagedReleases")
-
+WORKING_DIR = os.path.dirname(__file__)
+RELEASE_DIR = os.path.join(WORKING_DIR, 'PackagedReleases')
+LICENSE_PATH = os.path.join(WORKING_DIR, 'LICENSE.md')
 
 @dataclass
 class ModInfo:
@@ -49,19 +51,29 @@ def get_mod_info(path: str):
 
 
 def package_mod(mod: ModInfo):
-    archive_name = "{}_v{}".format(mod.name, mod.version)
+    archive_name = "{}_v{}.zip".format(mod.name, mod.version)
     archive_path = os.path.join(RELEASE_DIR, archive_name)
 
-    base_path = os.path.join(os.path.basename(MODS_PATH), os.path.basename(mod.path))
+    base_path = os.path.join('Mods', os.path.basename(mod.path))
 
     print("Creating package '{}'".format(archive_name))
 
-    shutil.make_archive(archive_path,
-        format='zip',
-        root_dir=os.path.dirname(MODS_PATH),
-        base_dir=base_path
-        )
+    with ZipFile(archive_path, 'w', compression=ZIP_DEFLATED, compresslevel=9) as zp:
+        #add mod files
+        for root, _, files in os.walk(mod.path):
+            for f in files:
+                path = os.path.join(root, f)
+                rel_path = os.path.join(base_path, os.path.relpath(path, mod.path))
 
+                zp.write(path, arcname=rel_path)
+
+        # add license
+        zp.write(LICENSE_PATH, arcname=os.path.basename(LICENSE_PATH))
+
+        # add readme if available
+        readme_path = os.path.join(WORKING_DIR, os.path.basename(mod.path), 'README.md')
+        if os.path.isfile(readme_path):
+            zp.write(readme_path, arcname=os.path.basename(readme_path))
 
 def main():
     mods = []
