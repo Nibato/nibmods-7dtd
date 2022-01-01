@@ -3,7 +3,7 @@
   <ModInfo>
     <Name value="UnlockedByDefault" />
     <Description value="Makes doors and vehicles unlcoekd by default" />
-    <Author value="Jesse Ward" />
+    <Author value="Nibato" />
     <Version value="1.0.0" />
   </ModInfo>
 </xml>
