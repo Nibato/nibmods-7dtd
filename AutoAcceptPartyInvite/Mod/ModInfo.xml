@@ -2,7 +2,7 @@
 <xml>
   <ModInfo>
     <Name value="AutoAcceptPartyInvite" />
-    <Description value="A 7 Days to Die C# Mod" />
+    <Description value="Auto-accept any party invites from allied players" />
     <Author value="Nibato" />
     <Version value="1.0.0" />
   </ModInfo>
