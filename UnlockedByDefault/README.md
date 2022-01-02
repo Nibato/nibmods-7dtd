@@ -1,1 +1,1 @@
-This client side mod makes all secure blocks that you place unlocked by default.
+This mod makes doors, chests, crates, and other blocks unlocked by default
