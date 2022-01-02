@@ -31,7 +31,7 @@ def get_mod_info(path: str):
     try:
         root = ET.parse(info_path)
     except ET.ParseError as e:
-        print("Error parsing '{}': {}".format(path, e))
+        print('Error parsing \'{}\': {}'.format(path, e))
         return None
 
     author_element = root.find('.//ModInfo/Author[@value]')
@@ -51,12 +51,12 @@ def get_mod_info(path: str):
 
 
 def package_mod(mod: ModInfo):
-    archive_name = "{}_v{}.zip".format(mod.name, mod.version)
+    archive_name = '{}_v{}.zip'.format(mod.name, mod.version)
     archive_path = os.path.join(RELEASE_DIR, archive_name)
 
     base_path = os.path.join('Mods', os.path.basename(mod.path))
 
-    print("Creating package '{}'".format(archive_name))
+    print('Creating package \'{}\''.format(archive_name))
 
     with ZipFile(archive_path, 'w', compression=ZIP_DEFLATED, compresslevel=9) as zp:
         #add mod files
@@ -79,7 +79,7 @@ def main():
     mods = []
 
     if not os.path.isdir(MODS_PATH):
-        print("Could not access mods directory")
+        print('Could not access mods directory')
 
     for d in os.listdir(MODS_PATH):
         path = os.path.join(MODS_PATH,d)
@@ -92,7 +92,7 @@ def main():
         mods.append(mod_info)
 
     if len(mods) <= 0:
-        print("No eligible mods found")
+        print('No eligible mods found')
         return
 
     if os.path.isdir(RELEASE_DIR):
@@ -104,5 +104,5 @@ def main():
         package_mod(mod)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
