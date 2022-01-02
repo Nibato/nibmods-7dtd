@@ -13,6 +13,7 @@ EXPECTED_AUTHOR = 'nibato'
 WORKING_DIR = os.path.dirname(__file__)
 RELEASE_DIR = os.path.join(WORKING_DIR, 'PackagedReleases')
 LICENSE_PATH = os.path.join(WORKING_DIR, 'LICENSE.md')
+GAME_VERSION = 'A20'
 
 
 @dataclass
@@ -52,7 +53,7 @@ def get_mod_info(path: str):
 
 
 def package_mod(mod: ModInfo):
-    archive_name = '{}_v{}.zip'.format(mod.name, mod.version)
+    archive_name = '{}_v{}_({}).zip'.format(mod.name, mod.version, GAME_VERSION)
     archive_path = os.path.join(RELEASE_DIR, archive_name)
 
     base_path = os.path.join('Mods', os.path.basename(mod.path))
