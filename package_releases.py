@@ -14,6 +14,7 @@ WORKING_DIR = os.path.dirname(__file__)
 RELEASE_DIR = os.path.join(WORKING_DIR, 'PackagedReleases')
 LICENSE_PATH = os.path.join(WORKING_DIR, 'LICENSE.md')
 
+
 @dataclass
 class ModInfo:
     name: str
@@ -68,12 +69,29 @@ def package_mod(mod: ModInfo):
                 zp.write(path, arcname=rel_path)
 
         # add license
-        zp.write(LICENSE_PATH, arcname=os.path.basename(LICENSE_PATH))
+        license_arcname = ''.join([os.path.splitext(os.path.basename(LICENSE_PATH))[0], '.txt'])
+        with open(LICENSE_PATH, 'r') as fp:
+            zp.writestr(license_arcname, fp.read())
+            
+        # Generate readme
+        readme_includes = [
+                os.path.join(WORKING_DIR, os.path.basename(mod.path), 'README.md'), 
+                os.path.join(WORKING_DIR, 'INSTALL.md')
+            ]
+
+        readme_text = ['# {} v{}'.format(mod.name, mod.version)]
 
         # add readme if available
-        readme_path = os.path.join(WORKING_DIR, os.path.basename(mod.path), 'README.md')
-        if os.path.isfile(readme_path):
-            zp.write(readme_path, arcname=os.path.basename(readme_path))
+        for path in readme_includes:
+            if not os.path.isfile(path):
+                continue
+
+            with open(path, 'r') as fp:
+                readme_text.append(fp.read())
+
+        if len(readme_text) > 1:
+            zp.writestr('README.txt', '\n\n'.join(readme_text))
+
 
 def main():
     mods = []
