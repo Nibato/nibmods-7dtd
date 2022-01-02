@@ -7,3 +7,5 @@ For more information on each mod, please view the README.md file in each folder:
 - [FocalLengthAiming](FocalLengthAiming/README.md)
 - [ProperMagnification](ProperMagnification/README.md)
 - [UnlockedByDefault](UnlockedByDefault/README.md)
+
+View [INSTALL.md](INSTALL.md) for installation and/or building instructions.
