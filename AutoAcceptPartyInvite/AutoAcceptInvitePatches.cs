@@ -7,57 +7,44 @@ namespace AutoAcceptPartyInvite
     [HarmonyPatch(typeof(EntityPlayer), "AddPartyInvite")]
     public static class AutoAcceptInvitePatches
     {
-        public static void Postfix(EntityPlayer __instance)
+        public static void Postfix(EntityPlayer __instance, int playerEntityID)
         {
-            if (SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
+            if (GameManager.IsDedicatedServer)
             {
                 return;
             }
 
-            if (!(__instance is EntityPlayerLocal))
-            {
-                return;
-            }
+            var localPlayer = __instance as EntityPlayerLocal; // received invite
+            var remotePlayer = GameManager.Instance.World.GetEntity(playerEntityID) as EntityPlayer; // sent invite
 
-            var entityPlayer = (EntityPlayerLocal)__instance;
+            if (localPlayer == null || remotePlayer == null)
+                return;
 
             // Player is already in a party
-            if (entityPlayer.IsInParty())
+            if (localPlayer.IsInParty())
                 return;
 
-            var friendsList = entityPlayer.persistentPlayerData?.ACL;
-            var playerList = GameManager.Instance?.GetPersistentPlayerList();
+            var friendsList = localPlayer.persistentPlayerData?.ACL;
+            var remotePlayerData = GameManager.Instance?.GetPersistentPlayerList()?.GetPlayerDataFromEntityID(playerEntityID);
 
-            if (friendsList == null || playerList == null)
+            if (friendsList == null || remotePlayerData == null)
             {
                 return;
             }
 
-            EntityPlayer inviter = null;
-
-            foreach (var i in entityPlayer.partyInvites)
+            if (!friendsList.Contains(remotePlayerData.UserIdentifier))
+                return;
+            
+            if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
             {
-                // Don't join a full party
-                if (i.IsInParty() && i.Party.MemberList.Count >= 8)
-                {
-                    continue;
-                }
-
-                var invData = playerList.GetPlayerDataFromEntityID(i.entityId);
-
-                if (invData == null || !friendsList.Contains(invData.UserIdentifier))
-                {
-                    continue;
-                }
-
-                inviter = i;
-                break;
+                Party.ServerHandleAcceptInvite(remotePlayer, localPlayer);
+            }
+            else
+            {
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackagePartyActions>().Setup(NetPackagePartyActions.PartyActions.AcceptInvite, inviter.entityId, localPlayer.entityId));
             }
 
-            if (inviter == null)
-                return;
-
-            SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackagePartyActions>().Setup(NetPackagePartyActions.PartyActions.AcceptInvite, inviter.entityId, entityPlayer.entityId));
+            
         }
     }
 

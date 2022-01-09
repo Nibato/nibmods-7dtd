@@ -4,21 +4,26 @@ using System.Collections.Generic;
 
 namespace AutoQuestShare
 {
-    [HarmonyPatch(typeof(GameManager), "QuestShareClient")]
+    [HarmonyPatch(typeof(NetPackageSharedQuest), "ProcessPackage")]
     public static class AutoAcceptSharedQuestPatch
     {
-        public static void Postfix(string _questID, EntityPlayerLocal _player, int _SharedByEntityID, int _questGiverID)
+        public static void Postfix(string ___questID, int ___sharedWithEntityID, int ___sharedByEntityID, int ___questGiverID)
         {
-            if (SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
+            if (GameManager.IsDedicatedServer)
             {
                 return;
             }
 
-            if (_player == null)
+            var player = GameManager.Instance.World.GetEntity(___sharedWithEntityID) as EntityPlayerLocal;
+
+            if (player == null)
                 return;
 
-            var questCode = Quest.CalculateQuestCode(_questID, _SharedByEntityID, _questGiverID);
-            var questJournal = _player.QuestJournal;
+            //string _questID, EntityPlayerLocal _player, int _SharedByEntityID, int _questGiverID
+
+
+            var questCode = Quest.CalculateQuestCode(___questID, ___sharedByEntityID, ___questGiverID);
+            var questJournal = player.QuestJournal;
 
             SharedQuestEntry sharedQuestEntry = null;
 
@@ -45,7 +50,15 @@ namespace AutoQuestShare
             quest.SetPositionData(Quest.PositionDataTypes.QuestGiver, sharedQuestEntry.ReturnPos);
             quest.Position = sharedQuestEntry.Position;
 
-            SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageSharedQuest>().Setup(quest.QuestCode, sharedQuestEntry.SharedByPlayerID, _player.entityId, true));
+
+            if (SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
+            {
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendPackage(NetPackageManager.GetPackage<NetPackageSharedQuest>().Setup(quest.QuestCode, sharedQuestEntry.SharedByPlayerID, player.entityId, true), _attachedToEntityId: sharedQuestEntry.SharedByPlayerID);
+            }
+            else
+            {
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackageSharedQuest>().Setup(quest.QuestCode, sharedQuestEntry.SharedByPlayerID, player.entityId, true));
+            }
         }
     }
 
@@ -54,7 +67,7 @@ namespace AutoQuestShare
     {
         public static void Postfix(XUiC_QuestOfferWindow __instance)
         {
-            if (SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
+            if (GameManager.IsDedicatedServer)
             {
                 return;
             }
@@ -71,40 +84,47 @@ namespace AutoQuestShare
         }
     }
 
+    [HarmonyPatch(typeof(Party), "ServerHandleAcceptInvite")]
+    public static class AutoInviteSharedQUestOnPartyJoinServerPatch
+    {   
+        public static void Postfix(EntityPlayer invitedBy, EntityPlayer invitedEntity)
+        {
+            if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer || GameManager.IsDedicatedServer)
+            {
+                return;
+            }
+
+            var entityPlayer = QuestUtils.LocalPlayer;
+
+            if (entityPlayer == null)
+                return;
+
+            if (invitedBy != entityPlayer || invitedEntity != entityPlayer)
+            {
+                return;
+            }
+
+            QuestUtils.shareAllQuests(entityPlayer);
+        }
+    }
 
     [HarmonyPatch(typeof(NetPackagePartyData), "ProcessPackage")]
-    public static class AutoInviteSharedQuestOnPartyJoinPatch
+    public static class AutoInviteSharedQuestOnPartyJoinClientPatch
     {
         public static void Postfix(int ___PartyID, NetPackagePartyData.PartyActions ___partyAction)
         {
-            if (SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
+            if (SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer || ___partyAction != NetPackagePartyData.PartyActions.AcceptInvite)
             {
                 return;
             }
-
-            if (___partyAction != NetPackagePartyData.PartyActions.AcceptInvite)
-                return;
-
-            var localPlayers = GameManager.Instance?.World?.GetLocalPlayers();
-
-            if (localPlayers == null || localPlayers.Count == 0)
-                return;
-
-            var entityPlayer = localPlayers[0];
-
             var party = PartyManager.Current?.GetParty(___PartyID);
 
-            if (party == null || entityPlayer.Party != party)
+            var entityPlayer = QuestUtils.LocalPlayer;
+
+            if (party == null || entityPlayer == null || entityPlayer.Party != party)
                 return;
 
-            // Share all quests
-            foreach (var quest in entityPlayer.QuestJournal.quests)
-            {
-                if (!quest.IsShareable)
-                    continue;
-
-                QuestUtils.shareQuest(entityPlayer, quest);
-            }
+            QuestUtils.shareAllQuests(entityPlayer);
         }
     }
 }
