@@ -15,6 +15,6 @@
 
 3. Clone the source code from [github](https://github.com/Nibato/nibmods-7dtd)
 
-4. The project files currently expect the game to be installed at `C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die`. If your game directory lies elsewhere, you will need to update the paths of the referenced game assemblies, and the build-events for each mod you wish to build. 
+4. For each project, add the 7 Days to Die *Managed* folder to the project reference path. (Example: `C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie_Data\Managed`)
 
-When building, the output assembly and relevant mod files will be copied to the game directory.
+5. These projects currently assume the game directory is `C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die`. If your game directory lies elsewhere, you'll need update the debug and post-build events of each project to use the correct directory.
