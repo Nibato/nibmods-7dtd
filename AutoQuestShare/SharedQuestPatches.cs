@@ -82,7 +82,7 @@ namespace AutoQuestShare
     }
 
     [HarmonyPatch(typeof(Party), "ServerHandleAcceptInvite")]
-    public static class AutoInviteSharedQUestOnPartyJoinServerPatch
+    public static class AutoInviteSharedQuestOnPartyJoinServerPatch
     {   
         public static void Postfix(EntityPlayer invitedBy, EntityPlayer invitedEntity)
         {
@@ -96,7 +96,7 @@ namespace AutoQuestShare
             if (entityPlayer == null)
                 return;
 
-            if (invitedBy != entityPlayer || invitedEntity != entityPlayer)
+            if (invitedBy != entityPlayer && invitedEntity != entityPlayer)
             {
                 return;
             }
