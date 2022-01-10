@@ -4,6 +4,6 @@
     <Name value="UnlockedByDefault" />
     <Description value="Makes doors, chests, crates, and other blocks unlocked by default" />
     <Author value="Nibato" />
-    <Version value="1.0.0" />
+    <Version value="1.0.1" />
   </ModInfo>
 </xml>

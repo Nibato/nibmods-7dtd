@@ -4,6 +4,6 @@
     <Name value="AutoQuestShare" />
     <Description value="Automatically accept incoming shared quest invites, and send shared request invitations to party members." />
     <Author value="Nibato" />
-    <Version value="1.0.0" />
+    <Version value="1.0.1" />
   </ModInfo>
 </xml>

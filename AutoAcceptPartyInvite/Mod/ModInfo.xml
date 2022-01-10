@@ -4,6 +4,6 @@
     <Name value="AutoAcceptPartyInvite" />
     <Description value="Auto-accept any party invites from allied players" />
     <Author value="Nibato" />
-    <Version value="1.0.0" />
+    <Version value="1.0.1" />
   </ModInfo>
 </xml>
