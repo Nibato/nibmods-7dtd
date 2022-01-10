@@ -19,9 +19,6 @@ namespace AutoQuestShare
             if (player == null)
                 return;
 
-            //string _questID, EntityPlayerLocal _player, int _SharedByEntityID, int _questGiverID
-
-
             var questCode = Quest.CalculateQuestCode(___questID, ___sharedByEntityID, ___questGiverID);
             var questJournal = player.QuestJournal;
 
