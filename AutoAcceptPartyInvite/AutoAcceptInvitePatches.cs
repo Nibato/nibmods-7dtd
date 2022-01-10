@@ -35,13 +35,13 @@ namespace AutoAcceptPartyInvite
             if (!friendsList.Contains(remotePlayerData.UserIdentifier))
                 return;
             
-            if (!SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
+            if (SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer)
             {
                 Party.ServerHandleAcceptInvite(remotePlayer, localPlayer);
             }
             else
             {
-                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackagePartyActions>().Setup(NetPackagePartyActions.PartyActions.AcceptInvite, inviter.entityId, localPlayer.entityId));
+                SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(NetPackageManager.GetPackage<NetPackagePartyActions>().Setup(NetPackagePartyActions.PartyActions.AcceptInvite, remotePlayer.entityId, localPlayer.entityId));
             }
 
             
