@@ -1,1 +1,0 @@
-This mod will auto-accept any party invites from allied players

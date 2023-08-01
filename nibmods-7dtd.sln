@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalLengthAiming", "FocalLengthAiming\FocalLengthAiming.csproj", "{811E1991-4BFA-4FF6-A392-5D9EB4B3F350}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProperMagnification", "ProperMagnification\ProperMagnification.csproj", "{E57664CA-A9D4-4581-A467-368F7628FE0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlockedByDefault", "UnlockedByDefault\UnlockedByDefault.csproj", "{FDEEF1C5-3331-484D-9937-71ACE0DE7726}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoQuestShare", "AutoQuestShare\AutoQuestShare.csproj", "{58B4931B-A5E2-4E08-9477-08622E2C8599}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoAcceptPartyInvite", "AutoAcceptPartyInvite\AutoAcceptPartyInvite.csproj", "{F6BC06DC-6CE1-43F7-9996-76F9397D76CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +27,6 @@ Global
 		{FDEEF1C5-3331-484D-9937-71ACE0DE7726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDEEF1C5-3331-484D-9937-71ACE0DE7726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDEEF1C5-3331-484D-9937-71ACE0DE7726}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58B4931B-A5E2-4E08-9477-08622E2C8599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58B4931B-A5E2-4E08-9477-08622E2C8599}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58B4931B-A5E2-4E08-9477-08622E2C8599}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58B4931B-A5E2-4E08-9477-08622E2C8599}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6BC06DC-6CE1-43F7-9996-76F9397D76CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6BC06DC-6CE1-43F7-9996-76F9397D76CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6BC06DC-6CE1-43F7-9996-76F9397D76CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6BC06DC-6CE1-43F7-9996-76F9397D76CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

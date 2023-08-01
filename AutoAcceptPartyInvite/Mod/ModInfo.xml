@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<xml>
-  <ModInfo>
-    <Name value="AutoAcceptPartyInvite" />
-    <Description value="Auto-accept any party invites from allied players" />
-    <Author value="Nibato" />
-    <Version value="1.0.1" />
-  </ModInfo>
-</xml>

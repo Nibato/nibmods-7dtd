@@ -1,1 +1,0 @@
-This mod will automatically accept incoming shared quest invites, and send shared request invitations to party members.
