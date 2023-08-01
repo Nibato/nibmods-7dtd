@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <xml>
-  <ModInfo>
-    <Name value="FocalLengthAiming" />
-    <Description value="Aiming down sights sensitivity will scale based on look sensitivity and FOV" />
-    <Author value="Nibato" />
-    <Version value="1.0.2" />
-  </ModInfo>
+	<Name value="FocalLengthAiming" />
+	<DisplayName value="FocalLengthAiming" />
+	<Description value="Aiming down sights sensitivity will scale based on look sensitivity and FOV. For 7DTD A21" />
+	<Author value="Nibato" />
+	<Version value="1.0.3" />
+	<Website value="https://github.com/Nibato/nibmods-7dtd" />
 </xml>
