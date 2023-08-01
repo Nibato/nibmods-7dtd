@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<xml>
-  <ModInfo>
-    <Name value="UnlockedByDefault" />
-    <Description value="Makes doors, chests, crates, and other blocks unlocked by default" />
-    <Author value="Nibato" />
-    <Version value="1.0.1" />
-  </ModInfo>
-</xml>

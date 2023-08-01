@@ -1,1 +1,0 @@
-This mod makes doors, chests, crates, and other blocks unlocked by default
