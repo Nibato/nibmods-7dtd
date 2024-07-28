@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FocalLengthAiming</RootNamespace>
     <AssemblyName>FocalLengthAiming</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="0Harmony, Version=2.13.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="InControl, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -60,8 +61,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods\$(ProjectName)\"
-xcopy /Y /S /R "$(ProjectDir)\Mod" "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods\$(ProjectName)\"
-copy /b "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\Mods\$(ProjectName)\$(ProjectName).dll"</PostBuildEvent>
+    <PostBuildEvent>mkdir "D:\SteamLibrary\steamapps\common\7 Days To Die\Mods\$(ProjectName)\"
+xcopy /Y /S /R "$(ProjectDir)\Mod" "D:\SteamLibrary\steamapps\common\7 Days To Die\Mods\$(ProjectName)\"
+copy /b "$(TargetPath)" "D:\SteamLibrary\steamapps\common\7 Days To Die\Mods\$(ProjectName)\$(ProjectName).dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>
