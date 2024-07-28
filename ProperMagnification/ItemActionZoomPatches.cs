@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using HarmonyLib;
+﻿using HarmonyLib;
 using UnityEngine;
 
 namespace ProperMagnification
-{ 
+{
 
     [HarmonyPatch(typeof(ItemActionZoom), "ConsumeScrollWheel")]
     public static class ItemActionZoom_ConsumeScrollWheel
@@ -22,7 +16,6 @@ namespace ProperMagnification
         // Number of wheel ticks to go from minimum zoom to maximum zoom
         private const float ZOOM_STEPS = 8f;
 
-
         public static bool Prefix(ItemActionData _actionData, ref float _scrollWheelInput)
         {
             if (_scrollWheelInput == 0)
@@ -35,26 +28,26 @@ namespace ProperMagnification
 
             var wheelIncrements = Mathf.Floor(_scrollWheelInput / WHEEL_INCREMENT);
             var zoomStep = (zoomData.MaxZoomOut - zoomData.MaxZoomIn) / ZOOM_STEPS;
-           
+
             _scrollWheelInput = zoomStep * wheelIncrements / WHEEL_SCALE;
 
-            
             return true;
         }
     }
 
     [HarmonyPatch(typeof(ItemActionZoom), "OnModificationsChanged")]
     public static class ItemActionZoom_OnModificationsChanged
-    {       
-        public static void Postfix(ItemActionData _data)
+    {
+        public static void Postfix(ref ItemActionData _data)
         {
-            var zoomData = new ItemActionZoomDataAccessor(_data);
+            //var zoomData = new ItemActionZoomDataAccessor(_data);
+            var zoomData = (ItemActionZoom.ItemActionDataZoom)_data;
 
             // The default/intended FOV
-            var defaultFOV = (int)GamePrefs.GetDefault(EnumGamePrefs.OptionsGfxFOV);
+            float defaultFOV = Constants.cDefaultCameraFieldOfView;
 
             // Player's current FOV
-            var lookFOV = GamePrefs.GetInt(EnumGamePrefs.OptionsGfxFOV);
+            float lookFOV = GamePrefs.GetInt(EnumGamePrefs.OptionsGfxFOV);
 
             // Calculate current magnifications based on default fov
             var zoomInMag = FOVTools.GetMagnification(defaultFOV, zoomData.MaxZoomIn);
@@ -65,6 +58,5 @@ namespace ProperMagnification
             zoomData.MaxZoomOut = Mathf.RoundToInt(FOVTools.Magnify(zoomOutMag, lookFOV));
             zoomData.CurrentZoom = zoomData.MaxZoomOut;
         }
-
     }
 }
