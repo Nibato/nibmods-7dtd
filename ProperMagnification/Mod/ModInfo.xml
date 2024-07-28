@@ -2,8 +2,8 @@
 <xml>
     <Name value="ProperMagnification" />
 	<DisplayName value="ProperMagnification" />
-    <Description value="Aiming and Scoping will now magnify based on your look FOV video setting instead of set to a fixed FOV. For A21" />
+    <Description value="Aiming and Scoping will now magnify based on your look FOV video setting instead of set to a fixed FOV. For 7DTD Release 1.0 (b333)" />
     <Author value="Nibato" />
-    <Version value="1.0.3" />
+    <Version value="1.0.4" />
 	<Website value="https://github.com/Nibato/nibmods-7dtd" />
 </xml>
