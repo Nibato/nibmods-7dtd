@@ -7,39 +7,31 @@ namespace FocalLengthAiming
 {
     [HarmonyPatch(typeof(PlayerMoveController))]
     [HarmonyPatch("Update")]
-    internal class PlayerMoveControllerAimPatch
+    public class PlayerMoveControllerAimPatch
     {
-        public static bool Prefix(PlayerMoveController __instance,
-            EntityPlayerLocal ___entityPlayerLocal,
-            Vector2 ___mouseLookSensitivity,
-            ref float ___mouseZoomSensitivity)
-
+        public static float GetSensitivityScale(EntityPlayerLocal entityPlayerLocal)
         {
-            if (!___entityPlayerLocal.AimingGun)
-            {
-                ___mouseZoomSensitivity = 1.0f;
-                return true;
-            }
+            //    if (!entityPlayerLocal.AimingGun)
+            //    {
+            //        return 1.0f;
+            //    }
 
             float defaultFOV = Constants.cDefaultCameraFieldOfView; //GamePrefs.GetInt(EnumGamePrefs.OptionsGfxFOV);
-            var aimFOV = ___entityPlayerLocal.cameraTransform.GetComponent<Camera>().fieldOfView;
+            var aimFOV = entityPlayerLocal.cameraTransform.GetComponent<Camera>().fieldOfView;
 
-            var sensMult = Mathf.Tan(aimFOV / 2 * Mathf.Deg2Rad) / Mathf.Tan(defaultFOV / 2 * Mathf.Deg2Rad);
-            ___mouseZoomSensitivity = sensMult;
-
-            return true;
+            return Mathf.Tan(aimFOV / 2 * Mathf.Deg2Rad) / Mathf.Tan(defaultFOV / 2 * Mathf.Deg2Rad);
         }
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             var entityPlayerLocalRef = AccessTools.Field(typeof(PlayerMoveController), "entityPlayerLocal");
             var lookSensitivityRef = AccessTools.Field(typeof(PlayerMoveController), "mouseLookSensitivity");
-            var zoomSensitivityRef = AccessTools.Field(typeof(PlayerMoveController), "mouseZoomSensitivity");
             var previousMouseInputRef = AccessTools.Field(typeof(PlayerMoveController), "previousMouseInput");
             var isAimingGunRef = AccessTools.PropertyGetter(typeof(EntityAlive), "AimingGun");
             var vector2MultFloatRef = AccessTools.Method(typeof(Vector2), "op_Multiply", new[] { typeof(Vector2), typeof(float) });
             var vector2AddVector2Ref = AccessTools.Method(typeof(Vector2), "op_Addition", new[] { typeof(Vector2), typeof(Vector2) });
             var vector2DivFloatRef = AccessTools.Method(typeof(Vector2), "op_Division", new[] { typeof(Vector2), typeof(float) });
+            var getSensitivityScaleRef = typeof(PlayerMoveControllerAimPatch).GetMethod("GetSensitivityScale");
 
             var c = new CodeMatcher(instructions);
 
@@ -51,7 +43,8 @@ namespace FocalLengthAiming
             .ThrowIfInvalid("Unable to find mouseLookSensitivity access")
             .Advance(1)
             .InsertAndAdvance(new CodeInstruction(OpCodes.Ldarg_0))
-            .InsertAndAdvance(new CodeInstruction(OpCodes.Ldfld, zoomSensitivityRef))
+            .InsertAndAdvance(new CodeInstruction(OpCodes.Ldfld, entityPlayerLocalRef))
+            .InsertAndAdvance(new CodeInstruction(OpCodes.Call, getSensitivityScaleRef))
             .InsertAndAdvance(new CodeInstruction(OpCodes.Call, vector2MultFloatRef));
 
             // Delete mouse smoothing code
