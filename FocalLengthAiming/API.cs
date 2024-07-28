@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace FocalLengthAiming
 {
@@ -11,9 +6,10 @@ namespace FocalLengthAiming
     {
         public void InitMod(Mod _modInstance)
         {
-            Log.Out(" Loading Patch: " + GetType());
+            Log.Out(" Loading Patch: " + this.GetType());
 
-            var harmony = new HarmonyLib.Harmony(GetType().ToString());
+            var harmony = new HarmonyLib.Harmony(this.GetType().ToString());
+
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
