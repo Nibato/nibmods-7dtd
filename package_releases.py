@@ -13,7 +13,7 @@ EXPECTED_AUTHOR = "nibato"
 WORKING_DIR = os.path.dirname(__file__)
 RELEASE_DIR = os.path.join(WORKING_DIR, "PackagedReleases")
 LICENSE_PATH = os.path.join(WORKING_DIR, "LICENSE.md")
-GAME_VERSION = "1.0"
+GAME_VERSION = "7dtd1.0"
 
 
 @dataclass
@@ -36,8 +36,8 @@ def get_mod_info(path: str):
         print("Error parsing '{}': {}".format(path, e))
         return None
 
-    author_element = root.find(".//ModInfo/Author[@value]")
-    version_element = root.find(".//ModInfo/Version[@value]")
+    author_element = root.find(".//Author[@value]")
+    version_element = root.find(".//Version[@value]")
 
     if author_element is None or version_element is None:
         return None
@@ -104,6 +104,9 @@ def main():
 
     for d in os.listdir(MODS_PATH):
         path = os.path.join(MODS_PATH, d)
+
+        if os.path.isfile(path):
+            continue
 
         mod_info = get_mod_info(path)
 
