@@ -9,7 +9,7 @@
 
 ## Building from Source
 
-1. If not already installed, get Visual Studio 2019 and .NET Framework 4.6.1
+1. If not already installed, get Visual Studio 2022 and .NET Framework 4.8.0
 
 2. Disable Easy Anti-Cheat in the 7 Days to Die Launcher. Client-side harmony mods can **not** be used with EAC enabled.
 
