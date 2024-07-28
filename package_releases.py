@@ -13,7 +13,7 @@ EXPECTED_AUTHOR = "nibato"
 WORKING_DIR = os.path.dirname(__file__)
 RELEASE_DIR = os.path.join(WORKING_DIR, "PackagedReleases")
 LICENSE_PATH = os.path.join(WORKING_DIR, "LICENSE.md")
-GAME_VERSION = "A20"
+GAME_VERSION = "1.0"
 
 
 @dataclass
