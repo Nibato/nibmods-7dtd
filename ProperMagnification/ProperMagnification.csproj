@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="API.cs" />
     <Compile Include="FOVTools.cs" />
-    <Compile Include="ItemActionZoomDataAccessor.cs" />
     <Compile Include="ItemActionZoomPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -24,7 +24,7 @@ namespace ProperMagnification
             if (!_actionData.invData.holdingEntity.AimingGun)
                 return true;
 
-            var zoomData = new ItemActionZoomDataAccessor(_actionData);
+            var zoomData = (ItemActionZoom.ItemActionDataZoom)_actionData;
 
             var wheelIncrements = Mathf.Floor(_scrollWheelInput / WHEEL_INCREMENT);
             var zoomStep = (zoomData.MaxZoomOut - zoomData.MaxZoomIn) / ZOOM_STEPS;
