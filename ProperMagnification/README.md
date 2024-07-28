@@ -7,4 +7,4 @@ With this mod, your screen will always be zoomed in/magnified by the same multip
 This is accomplished calculating a magnification value based on the default FOV of 65, and this magnification value is then applied to your Look FOV setting when aiming.
 
 Known Bugs:
-	If you modify your FOV in your graphics settings, you'll probably need to reload your save or reconnect to the server for weapon zooms to update properly
+	If you modify your FOV in your graphics settings, your held weapon's zoom fov won't be updated until you switch off and back to it
