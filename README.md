@@ -1,4 +1,4 @@
-Various Harmony mods For 7 Days to Die A21.
+Various Harmony mods For 7 Days to Die V2.4
 
 For more information on each mod, please view the README.md file in each folder:
 
