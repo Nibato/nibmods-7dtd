@@ -4,6 +4,6 @@
 	<DisplayName value="FocalLengthAiming" />
 	<Description value="Aiming down sights sensitivity will scale based on look sensitivity and FOV. For 7DTD Release 1.0 (b333)" />
 	<Author value="Nibato" />
-	<Version value="1.0.4" />
+	<Version value="1.0.5" />
 	<Website value="https://github.com/Nibato/nibmods-7dtd" />
 </xml>
